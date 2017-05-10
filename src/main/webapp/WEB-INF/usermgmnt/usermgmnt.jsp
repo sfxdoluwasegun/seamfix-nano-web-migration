@@ -41,7 +41,7 @@
                                   <td>Active</td>
                                   <td class="td-actions">
                                     <a ><button type="button" data-placement="top" title="VIEW MORE" class="btn btn-info"><i class="material-icons">keyboard_arrow_down</i></button></a>
-							        <a ><button type="button" data-placement="top" title="UPDATE" class="btn"><i class="material-icons">mode_edit</i></button></a>
+							        <a ><button type="button" data-placement="top" title="UPDATE" class="btn" data-toggle="modal" data-target="#updateadmin"><i class="material-icons">mode_edit</i></button></a>
 							        <a ><button type="button" data-placement="top" title="RESET PASSWORD" class="btn btn-warning"><i class="material-icons">loop</i></button></a>
 							        <a ><button type="button" data-placement="top" title="ACTIVATE" class="btn btn-success" data-toggle="modal" ><i class="material-icons">check_circle</i></button></a>
 							        <a ><button type="button" data-placement="top" title="DEACTIVATE" class="btn btn-danger" data-toggle="modal" ><i class="material-icons">close</i></button></a>
@@ -56,7 +56,7 @@
                                   <td>Active</td>
                                   <td class="td-actions">
                                     <a ><button type="button" data-placement="top" title="VIEW MORE" class="btn btn-info"><i class="material-icons">keyboard_arrow_down</i></button></a>
-							        <a ><button type="button" data-placement="top" title="UPDATE" class="btn"><i class="material-icons">mode_edit</i></button></a>
+							        <a ><button type="button" data-placement="top" title="UPDATE" class="btn" data-toggle="modal" data-target="#updateadmin"><i class="material-icons">mode_edit</i></button></a>
 							        <a ><button type="button" data-placement="top" title="RESET PASSWORD" class="btn btn-warning"><i class="material-icons">loop</i></button></a>
 							        <a ><button type="button" data-placement="top" title="ACTIVATE" class="btn btn-success" data-toggle="modal" ><i class="material-icons">check_circle</i></button></a>
 							        <a ><button type="button" data-placement="top" title="DEACTIVATE" class="btn btn-danger" data-toggle="modal" ><i class="material-icons">close</i></button></a>
@@ -78,7 +78,118 @@
 			<div class="modal-content">
 					<div class="modal-header modal-success">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h3 id="myModalLabel" style="color:white">Add Admin</h3>
+                            <h3 id="myModalLabel" style="color:Blue"><fmt:message key="label.addAdmin" /></h3>
+                    </div>
+			        <div class="modal-body">										
+						 <form id="addadminuser" class="form-horizontal" method="POST" action="/nano/usermanagement">
+						 	<div class="col-sm-12">
+						         <div class="input-group">
+			                        <span class="input-group-addon">
+			                            <i class="material-icons">face</i>
+			                        </span>
+				                    <div class="form-group label-floating">
+				                        <label class="control-label"><fmt:message key="label.firstname" /></label>
+				                        <input type="text" class="form-control"
+											id="firstName" name="firstName" pattern="[a-zA-Z]{1,15}"
+											title="<fmt:message key="label.firstname.error" />"
+											required>
+				                    </div>
+		                		</div>
+				                <div class="input-group">
+				                        <span class="input-group-addon">
+				                            <i class="material-icons">face</i>
+				                        </span>
+					                    <div class="form-group label-floating">
+					                        <label class="control-label"><fmt:message key="label.lastname" /></label>
+					                        <input type="text" class="form-control"
+												name="lastName" id="lastName" pattern="[a-zA-Z]{1,15}"
+												title="<fmt:message key="label.lastname.error" />"
+												required>
+					                    </div>
+				                </div>
+				                 <div class="input-group">
+				                        <span class="input-group-addon">
+				                            <i class="material-icons">face</i>
+				                        </span>
+					                    <div class="form-group label-floating">
+					                        <label class="control-label"><fmt:message key="label.middlename" /></label>
+					                        <input type="text" class="form-control"
+												name="middlename" id="middlename" pattern="[a-zA-Z]{1,15}"
+												title="<fmt:message key="label.middlename.error" />"
+												>
+					                    </div>
+				                </div>
+				                <div class="input-group">
+					                  <span class="input-group-addon">
+					                     <i class="material-icons">face</i>
+					                  </span>
+					                  <select class="form-control" name="gender" id="gender" required>
+					                      <option selected disabled hidden=true><fmt:message key="label.selectgender" /></option>
+					                      <option value = "1">Female</option>
+					                      <option value = "1">Male</option>
+					                  </select>
+				                </div>
+				                <div class="input-group">
+				                        <span class="input-group-addon">
+				                            <i class="material-icons">mail</i>
+				                        </span>
+					                    <div class="form-group label-floating">
+					                        <label class="control-label"><fmt:message key="label.emailadd" /></label>
+					                        <input type="email" class="form-control" name="email" id="email" required>
+					                    </div>
+				                </div>
+				                <div class="input-group">
+				                        <span class="input-group-addon">
+				                            <i class="material-icons">phone</i>
+				                        </span>
+					                    <div class="form-group label-floating">
+					                        <label class="control-label"><fmt:message key="label.phoneno" /></label>
+					                        <input class="form-control" name="phoneno" id="phoneno" required>
+					                    </div>
+				                </div>
+				                <div class="input-group">
+					                  <span class="input-group-addon">
+					                     <i class="material-icons">supervisor_account</i>
+					                  </span>
+					                  <select class="form-control" name="community" required>
+					                      <option selected disabled hidden=true><fmt:message key="label.selectcommunity" /></option>
+					                      <option value = "1">Etisalat Admin</option>
+					                      <option value = "1">Nano Airtime Admin</option>
+					                      <option value = "1">Nano Airtime Directors</option>
+					                      <option value = "1">Support Admin</option>
+					                  </select>
+				                </div>
+				                <div class="input-group">
+				                        <span class="input-group-addon">
+				                            <i class="material-icons">lock_outline</i>
+				                        </span>
+					                    <div class="form-group label-floating">
+					                        <label class="control-label"><fmt:message key="label.password" /></label>
+					                        <input type="password" class="form-control" name="password" minlength="8" required>
+					                    </div>
+				                </div>
+				                <input name="action" value="createAdminuser" type="hidden">
+						        <button type="submit" id="submituserform" class="btn btn-info pull-right"><fmt:message key="label.submit" /></button>
+							</div>
+						 </form>
+					</div>
+					<div class="modal-footer">
+					</div>
+		  </div>
+    </div>
+</div>
+
+<!------------------------ Add Admin User Modal ends------------------------------>
+<!------------------------------------------------ Update Admin User Modal------------------------------------------------------------>
+									
+<div class="modal fade" id="updateadmin" role="dialog">
+	<div class="modal-dialog">
+
+<!-- Modal content-->
+			<div class="modal-content">
+					<div class="modal-header modal-success">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel" style="color:Blue"><fmt:message key="label.updateAdmin" /></h3>
                     </div>
 			        <div class="modal-body">										
 						 <form id="addadminuser" class="form-horizontal" method="POST" action="/nano/usermanagement">
@@ -169,7 +280,7 @@
 					                    </div>
 				                </div>
 				                <input name="action" value="createAdminuser" type="hidden">
-						        <button type="submit" id="submituserform" class="btn btn-success pull-right"><fmt:message key="label.submit" /></button>
+						        <button type="submit" id="submituserform" class="btn btn-info pull-right"><fmt:message key="label.updateUser" /></button>
 							</div>
 						 </form>
 					</div>
@@ -179,7 +290,7 @@
     </div>
 </div>
 
-<!------------------------ Add Admin User Modal ends------------------------------>
+<!------------------------ Update Admin User Modal ends------------------------------>
 	</jsp:body>
 </t:page>
 <script>

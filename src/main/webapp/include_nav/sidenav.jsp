@@ -13,6 +13,7 @@
 <c:set var="generalsettings" value="" />
 <c:set var="settlement" value="" />
 <c:set var="thresholdsettings" value="" />
+<c:set var="support" value="" />
 
 <c:if test="${sessionScope.menuitem eq 'rascriteria'}">
 	<c:set var="rascriteria" value="active" />
@@ -44,6 +45,10 @@
 
 <c:if test="${sessionScope.menuitem eq 'thresholdsettings'}">
 	<c:set var="thresholdsettings" value="active" />
+</c:if>
+
+<c:if test="${sessionScope.menuitem eq 'support'}">
+	<c:set var="support" value="active" />
 </c:if>
 
 <div class="sidebar" data-active-color="rose" data-background-color="black" data-image="/nano/assets/img/sidebar-1.jpg">
@@ -141,6 +146,12 @@
                 <a href="/nano/reportjobs">
                     <i class="material-icons">multiline_chart</i>
                     <p><fmt:message key="label.reportjobs" /></p>
+                </a>
+            </li>
+            <li class="${support}">
+                <a href="/nano/support">
+                    <i class="material-icons">multiline_chart</i>
+                    <p><fmt:message key="label.support" /></p>
                 </a>
             </li>
         </ul>
