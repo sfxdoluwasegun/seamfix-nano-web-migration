@@ -34,6 +34,8 @@
 	    <link href="/nano/assets/css/material-dashboard.css" rel="stylesheet" />
 	    <link href="/nano/assets/css/custom.css" rel="stylesheet" />
 	    <link href="/nano/assets/css/c3.css" rel="stylesheet" />
+	    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
     </head>
     <body>
     		<div class="wrapper">
@@ -53,6 +55,7 @@
 					<script src="/nano/assets/js/bootstrap.min.js" type="text/javascript"></script>
 					<script src="/nano/assets/js/material.min.js" type="text/javascript"></script>
 					<script src="/nano/assets/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+					<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
 					<!-- Forms Validations Plugin -->
 					<script src="/nano/assets/js/jquery.validate.min.js"></script>
 					<!--  Plugin for Date Time Picker and Full Calendar Plugin-->

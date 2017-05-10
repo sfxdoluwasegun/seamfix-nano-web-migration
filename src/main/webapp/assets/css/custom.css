@@ -1,7 +1,10 @@
 /* input.error {
    border: 1px solid red;
 } */
-
+#eventForm .form-control-feedback {
+    top: 0;
+    right: -15px;
+}
 label.error {
     /* position: absolute;
     right: 143px;
