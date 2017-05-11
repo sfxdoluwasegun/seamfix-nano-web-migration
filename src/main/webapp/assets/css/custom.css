@@ -1,7 +1,10 @@
 /* input.error {
    border: 1px solid red;
 } */
-
+.specialColor { 
+    /* Whatever color  you want */
+    background-color: #82caff;
+}
 label.error {
     /* position: absolute;
     right: 143px;

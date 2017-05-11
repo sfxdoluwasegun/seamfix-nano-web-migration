@@ -20,7 +20,7 @@
             
             <a class="navbar-brand" href="#"> Dashboard </a>
         </div> -->
-        <div>
+       <%--  <div>
         	<form id ="myForm" class="form-horizontal" method="POST" action="/nano/usermanagement">
 	            <select id="language" name="language" onchange="submit()">
 	                <option  ${language == 'en' ? 'selected' : ''} value="en">English</option>
@@ -29,7 +29,7 @@
 	            </select>
 	            <input name="action" value="changeLanguge" type="hidden">
 	        </form>
-        </div>
+        </div> --%>
 <!--         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
