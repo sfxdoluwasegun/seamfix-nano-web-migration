@@ -6,25 +6,37 @@
 
 <t:page>
 	<jsp:body>
+	<div>
+        	<form id ="myForm" class="form-horizontal" method="POST" action="/nano/support">
+	            <select id="language" name="language" onchange="submit()">
+	                <option  ${language == 'en' ? 'selected' : ''} value="en">English</option>
+	                <option  ${language == 'fr' ? 'selected' : ''} value="fr">French</option>
+	                <option  ${language == 'zh' ? 'selected' : ''} value="zh">China</option>
+	            </select>
+	            <input name="action" value="changeLanguge" type="hidden">
+	        </form>
+        </div>
 		<div class="card">
 				<div class="card-header card-header-icon"
-					data-background-color="rose">
+					data-background-color="#00bcd4">
 					<i class="material-icons">assignment</i>
 				</div>
-				<h5 class="card-title"><b>Report For NanoAirtime - </b> You can generate reports using the search tool.</h5>
+				<h5 class="card-title"><b><fmt:message key="label.RforNano" /></b> <fmt:message key="label.Extra" /></h5>
 				<div class="clearfix"></div>
 				<div class="card-content">
 					<div>
 					<form>
 						<div class="input-group">
 						<label class="control-label"><fmt:message key="label.selectreport" /></label>
-			                  <select class="form-control" name="gender" id="gender" required>
-			                      <option value = "1">LOAN REQUEST REPORT</option>
-			                      <option value = "1">LIST OF USERS</option>
+			                  <select class="form-control" name="reporttype" onchange="changeform()" id="reporttype" required>
+			                      <option value = "loanrequest">LOAN REQUEST REPORT</option>
+			                      <option value = "loanreturn">LOAN RETURN REPORT</option>
+			                      <option value = "subscriberassessment">SUBSCRIBER ASSESSMENT</option>
 			                  </select>
 				         </div>
 				         <br>
 				        <b> ENTER SEARCH PARAMETERS	</b>
+				        <div id="loanrequest">
 				        <div class="row">
 				        	<div class="col-xs-2">
 						        <div class="form-group">
@@ -80,52 +92,151 @@
 				                </div>
 				        	</div>	
 				        	<div class="col-xs-2">
-				        
+				        		<div class="input-group">
+				                    <div class="form-group">
+				                        <label class="control-label"><fmt:message key="label.emailadd" /></label>
+				                        <div>
+				                        	<input class="form-control" name="msisdn" id="msisdn" required>
+				                        </div>
+				                    </div>
+				                </div>
 				        	</div>	
 				        </div>
-				        <div class="row">
-				        	<div class="col-md-3">
-			        			<div class="checkbox">
-				      				<label><input name ="selectall" type="checkbox" value="selectall">Select All</label>
-				    			</div>
-		        			</div>
+				      </div>
+				      <div id ="loanreturn" style="display:none;">
+				      	 <div class="row">
+				        	<div class="col-xs-2">
+						        <div class="form-group">
+							        <label class="control-label">Return Start Date</label>
+							        <div class="date">
+							            <div class="input-group input-append date" id="datePicker">
+							                <input type="text" class="form-control" name="date" />
+							                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+							            </div>
+							        </div>
+							    </div>
+				        	</div>	
+				        	<div class="col-xs-2">
+				        		<div class="form-group">
+							        <label class="control-label">Return End Date</label>
+							        <div class="date">
+							            <div class="input-group input-append date" id="datePicker2">
+							                <input type="text" class="form-control" name="date" />
+							                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+							            </div>
+							        </div>
+							    </div>
+				        
+				        	</div>	
+				        	<div class="col-xs-2">
+				        		<div class="input-group">
+				                    <div class="form-group">
+				                        <label class="control-label"><fmt:message key="label.emailadd" /></label>
+				                        <div>
+				                        	<input class="form-control" name="msisdn" id="msisdn" required>
+				                        </div>
+				                    </div>
+				                </div>
+				        	</div>	
+				        	<div class="col-xs-2">
+				        		<div class="input-group">
+				                    <div class="form-group">
+				                        <label class="control-label"><fmt:message key="label.emailadd" /></label>
+				                        <div>
+				                        	<input class="form-control" name="msisdn" id="msisdn" required>
+				                        </div>
+				                    </div>
+				                </div>
+				        	</div>
+				        	<div class="col-xs-2">
+				        		<div class="input-group">
+				                    <div class="form-group">
+				                        <label class="control-label"><fmt:message key="label.emailadd" /></label>
+				                        <div>
+				                        	<input class="form-control" name="msisdn" id="msisdn" required>
+				                        </div>
+				                    </div>
+				                </div>
+				        	</div>	
+				        	<div class="col-xs-2">
+				        		<div class="input-group">
+				                    <div class="form-group">
+				                        <label class="control-label"><fmt:message key="label.emailadd" /></label>
+				                        <div>
+				                        	<input class="form-control" name="msisdn" id="msisdn" required>
+				                        </div>
+				                    </div>
+				                </div>
+				        	</div>	
 				        </div>
+				      </div>
+				      <div id ="subscriberassessment" style="display:none;">
+				      	 <div class="row">
+				        	<div class="col-xs-2">
+						        <div class="form-group">
+							        <label class="control-label">Assessment Start Date</label>
+							        <div class="date">
+							            <div class="input-group input-append date" id="datePicker">
+							                <input type="text" class="form-control" name="date" />
+							                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+							            </div>
+							        </div>
+							    </div>
+				        	</div>	
+				        	<div class="col-xs-2">
+				        		<div class="form-group">
+							        <label class="control-label">Assessment End Date</label>
+							        <div class="date">
+							            <div class="input-group input-append date" id="datePicker2">
+							                <input type="text" class="form-control" name="date" />
+							                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+							            </div>
+							        </div>
+							    </div>
+				        	</div>	
+				        	<div class="col-xs-2">
+				        		<div class="input-group">
+				                    <div class="form-group">
+				                        <label class="control-label"><fmt:message key="label.emailadd" /></label>
+				                        <div>
+				                        	<input class="form-control" name="msisdn" id="msisdn" required>
+				                        </div>
+				                    </div>
+				                </div>
+				        	</div>	
+				        	<div class="col-xs-2">
+					        	<div class="input-group">
+									  <label class="control-label"><fmt:message key="label.selectreport" /></label>
+					                  <select class="form-control" name="eligibleamount" id="eligibleamount" required>
+					                      <option value = "1">50</option>
+					                      <option value = "1">100</option>
+					                      <option value = "1">200</option>
+					                      <option value = "1">500</option>
+					                      <option value = "1">1000</option>
+					                      <option value = "1">2000</option>
+					                      <option value = "1">2600</option>
+					                  </select>
+						         </div>
+				        	</div>	
+				        	<div class="col-xs-2">
+					        	<div class="input-group">
+									  <label class="control-label"><fmt:message key="label.selectreport" /></label>
+					                  <select class="form-control" name="eligibilitystatus" id="eligibilitystatus" required>
+					                      <option value = "1">Eligible</option>
+					                      <option value = "1">In-eligible</option>
+					                  </select>
+						         </div>
+				        	</div>	
+				        	<div class="col-xs-2">
+				        	</div>
+				        </div>
+				      </div>
 				        <div class="row">
-				        	<div class="col-md-3">
-			        			<div class="checkbox">
-				      				<label><input name ="selectall" type="checkbox" >Request time</label>
-				    			</div>
-		        			</div>
-		        			<div class="col-md-3">
-			        			<div class="checkbox">
-				      				<label><input name ="selectall" type="checkbox" >MSISDN</label>
-				    			</div>
-		        			</div>
-		        			<div class="col-md-3">
-			        			<div class="checkbox">
-				      				<label><input name ="selectall" type="checkbox" >Loan Reference</label>
-				    			</div>
-		        			</div>
-		        			<div class="col-md-3">
-			        			<div class="checkbox">
-				      				<label><input name ="selectall" type="checkbox" >Request amount</label>
-				    			</div>
-		        			</div>
-		        			<div class="col-md-3">
-			        			<div class="checkbox">
-				      				<label><input name ="selectall" type="checkbox" >Grant status</label>
-				    			</div>
-		        			</div>
-		        			<div class="col-md-3">
-			        			<div class="checkbox">
-				      				<label><input name ="selectall" type="checkbox" >SMPP Notification </label>
-				    			</div>
-		        			</div>
+			        		<button type="submit" id="submituserform" class="btn pull-left"><<fmt:message key="label.runreport" /></button>
 				        </div>
 					</form>
 				</div>
 				<div>
-				
 				</div>
 			</div>
 		</div>
@@ -183,4 +294,56 @@ $(document).ready(function() {
     });
 
 });
+</script>
+<script>
+//select all checkboxes(jquery 1.6+)
+$("#selectall").change(function(){  //"select all" change
+    $(".checkbox").prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status
+});
+
+//".checkbox" change
+$('.checkbox').change(function(){
+    //uncheck "select all", if one of the listed checkbox item is unchecked
+    if(false == $(this).prop("checked")){ //if this item is unchecked
+        $("#selectall").prop('checked', false); //change "select all" checked status to false
+    }
+    //check "select all" if all checkbox items are checked
+    if ($('.checkbox:checked').length == $('.checkbox').length ){
+        $("#selectall").prop('checked', true);
+    }
+});
+</script>
+<script>
+function changeform(){
+	var selectedvalue = $( "#reporttype" ).val();
+	
+	if(selectedvalue=='loanrequest'){
+		showelement('loanrequest');
+		hideelement('subscriberassessment');
+		hideelement('loanreturn');
+	}else if(selectedvalue=='loanreturn'){
+		hideelement('loanrequest');
+		hideelement('subscriberassessment');
+		showelement('loanreturn');
+	}else if(selectedvalue=='subscriberassessment'){
+		hideelement('loanrequest');
+		showelement('subscriberassessment');
+		hideelement('loanreturn');
+	}
+}
+
+function hideelement(id){
+	document.getElementById(id).style.display = "none";
+}
+function showelement(id){
+	document.getElementById(id).style.display = "block";
+}
+</script>
+<script>
+var resultOutput = {
+	"loanrequest": ["Request Time","MSISDN","Loan Reference","Request Channel","SMS/USSD","Request Amount","Grant Status","SMPP Notification","EVC Notification","Sercom Notification"],
+	"loanreturn":["MSISDN","Ref Number","Recharge Date","Processed Date","Amount Loaned","Service Charge","Amount Paid","Amount STill owed","Sercom Notification"],
+	"subscriberassessment":["MSISDN","Last Assessment Date","Number Of Topups in last 30 days","Amount topped up in last 30 days","age on network","Eligibility Status"]
+}
+
 </script>
