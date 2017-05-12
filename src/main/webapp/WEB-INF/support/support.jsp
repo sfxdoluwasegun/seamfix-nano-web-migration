@@ -29,21 +29,21 @@
 						<div class="input-group">
 						<label class="control-label"><fmt:message key="label.selectreport" /></label>
 			                  <select class="form-control" name="reporttype" onchange="changeform()" id="reporttype" required>
-			                      <option value = "loanrequest">LOAN REQUEST REPORT</option>
-			                      <option value = "loanreturn">LOAN RETURN REPORT</option>
-			                      <option value = "subscriberassessment">SUBSCRIBER ASSESSMENT</option>
+			                      <option value = "loanrequest"><fmt:message key="label.loanrequest" /></option>
+			                      <option value = "loanreturn"><fmt:message key="label.loanReturn" /></option>
+			                      <option value = "subscriberassessment"><fmt:message key="label.subscriberassessment" /></option>
 			                  </select>
 				         </div>
 				         <br>
-				        <b> ENTER SEARCH PARAMETERS	</b>
+				        <b><fmt:message key="label.entersearchparam" /></b>
 				        <div id="loanrequest">
 				        <div class="row">
 				        	<div class="col-xs-2">
 						        <div class="form-group">
-							        <label class="control-label">Request Start Date</label>
+							        <label class="control-label"><fmt:message key="label.requestStartDate" /></label>
 							        <div class="date">
-							            <div class="input-group input-append date" id="datePicker">
-							                <input type="text" class="form-control" name="date" />
+							            <div class="input-group input-append date" class="datepicker1">
+							                <input type="text" class="form-control" name="startdate" />
 							                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
 							            </div>
 							        </div>
@@ -51,10 +51,10 @@
 				        	</div>	
 				        	<div class="col-xs-2">
 				        		<div class="form-group">
-							        <label class="control-label">Request End Date</label>
+							        <label class="control-label"><fmt:message key="label.RequestEndDate" /></label>
 							        <div class="date">
-							            <div class="input-group input-append date" id="datePicker2">
-							                <input type="text" class="form-control" name="date" />
+							            <div class="input-group input-append date" class="datepicker1">
+							                <input type="text" class="form-control" name="enddate" />
 							                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
 							            </div>
 							        </div>
@@ -64,7 +64,7 @@
 				        	<div class="col-xs-2">
 				        		<div class="input-group">
 				                    <div class="form-group">
-				                        <label class="control-label"><fmt:message key="label.emailadd" /></label>
+				                        <label class="control-label"><fmt:message key="label.msisdn" /></label>
 				                        <div>
 				                        	<input class="form-control" name="msisdn" id="msisdn" required>
 				                        </div>
@@ -73,30 +73,30 @@
 				        	</div>	
 				        	<div class="col-xs-2">
 				        		<div class="input-group">
-				                    <div class="form-group">
-				                        <label class="control-label"><fmt:message key="label.emailadd" /></label>
-				                        <div>
-				                        	<input class="form-control" name="msisdn" id="msisdn" required>
-				                        </div>
-				                    </div>
-				                </div>
+									  <label class="control-label"><fmt:message key="label.GrantStatus" /></label>
+					                  <select class="form-control" name="grantstatus" required>
+					                      <option value = "granted"><fmt:message key="label.Granted" /></option>
+					                      <option value = "notgranted"><fmt:message key="label.notgranted" /></option>
+					                  </select>
+						         </div>
 				        	</div>
 				        	<div class="col-xs-2">
 				        		<div class="input-group">
-				                    <div class="form-group">
-				                        <label class="control-label"><fmt:message key="label.emailadd" /></label>
-				                        <div>
-				                        	<input class="form-control" name="msisdn" id="msisdn" required>
-				                        </div>
-				                    </div>
+				                    <div class="input-group">
+									  <label class="control-label"><fmt:message key="label.RequestChannel" /></label>
+					                  <select class="form-control" name="requestchannel" required>
+					                      <option value = "ussd"><fmt:message key="label.sms" /></option>
+					                      <option value = "sms"><fmt:message key="label.ussd" /></option>
+					                  </select>
+						         	</div>
 				                </div>
 				        	</div>	
 				        	<div class="col-xs-2">
 				        		<div class="input-group">
 				                    <div class="form-group">
-				                        <label class="control-label"><fmt:message key="label.emailadd" /></label>
+				                        <label class="control-label"><fmt:message key="label.genericsearch" /></label>
 				                        <div>
-				                        	<input class="form-control" name="msisdn" id="msisdn" required>
+				                        	<input class="form-control" name="searchgeneric" id="searchgeneric" required>
 				                        </div>
 				                    </div>
 				                </div>
@@ -107,10 +107,10 @@
 				      	 <div class="row">
 				        	<div class="col-xs-2">
 						        <div class="form-group">
-							        <label class="control-label">Return Start Date</label>
+							        <label class="control-label"><fmt:message key="label.requestStartDate" /></label>
 							        <div class="date">
-							            <div class="input-group input-append date" id="datePicker">
-							                <input type="text" class="form-control" name="date" />
+							            <div class="input-group input-append date" class="datepicker1">
+							                <input type="text" class="form-control" name="startdateforloanreturn" />
 							                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
 							            </div>
 							        </div>
@@ -118,10 +118,10 @@
 				        	</div>	
 				        	<div class="col-xs-2">
 				        		<div class="form-group">
-							        <label class="control-label">Return End Date</label>
+							        <label class="control-label"><fmt:message key="label.RequestEndDate" /></label>
 							        <div class="date">
-							            <div class="input-group input-append date" id="datePicker2">
-							                <input type="text" class="form-control" name="date" />
+							            <div class="input-group input-append date" class="datepicker1">
+							                <input type="text" class="form-control" name="enddateforloanreturn" />
 							                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
 							            </div>
 							        </div>
@@ -131,9 +131,9 @@
 				        	<div class="col-xs-2">
 				        		<div class="input-group">
 				                    <div class="form-group">
-				                        <label class="control-label"><fmt:message key="label.emailadd" /></label>
+				                        <label class="control-label"><fmt:message key="label.msisdn" /></label>
 				                        <div>
-				                        	<input class="form-control" name="msisdn" id="msisdn" required>
+				                        	<input class="form-control" name="msisdnforloanreturn" id="msisdnforloanreturn" required>
 				                        </div>
 				                    </div>
 				                </div>
@@ -141,9 +141,9 @@
 				        	<div class="col-xs-2">
 				        		<div class="input-group">
 				                    <div class="form-group">
-				                        <label class="control-label"><fmt:message key="label.emailadd" /></label>
+				                        <label class="control-label"><fmt:message key="label.LoanReference" /></label>
 				                        <div>
-				                        	<input class="form-control" name="msisdn" id="msisdn" required>
+				                        	<input class="form-control" name="refno" id="refno" required>
 				                        </div>
 				                    </div>
 				                </div>
@@ -151,9 +151,9 @@
 				        	<div class="col-xs-2">
 				        		<div class="input-group">
 				                    <div class="form-group">
-				                        <label class="control-label"><fmt:message key="label.emailadd" /></label>
+				                        <label class="control-label"><fmt:message key="label.LoanAmount" /></label>
 				                        <div>
-				                        	<input class="form-control" name="msisdn" id="msisdn" required>
+				                        	<input class="form-control" name="loanamount" id="loanamount" required>
 				                        </div>
 				                    </div>
 				                </div>
@@ -161,9 +161,9 @@
 				        	<div class="col-xs-2">
 				        		<div class="input-group">
 				                    <div class="form-group">
-				                        <label class="control-label"><fmt:message key="label.emailadd" /></label>
+				                        <label class="control-label"><fmt:message key="label.paidAmount" /></label>
 				                        <div>
-				                        	<input class="form-control" name="msisdn" id="msisdn" required>
+				                        	<input class="form-control" name="paidamount" id="paidamount" required>
 				                        </div>
 				                    </div>
 				                </div>
@@ -174,10 +174,10 @@
 				      	 <div class="row">
 				        	<div class="col-xs-2">
 						        <div class="form-group">
-							        <label class="control-label">Assessment Start Date</label>
+							        <label class="control-label"><fmt:message key="label.assessmentstartdate" /></label>
 							        <div class="date">
-							            <div class="input-group input-append date" id="datePicker">
-							                <input type="text" class="form-control" name="date" />
+							            <div class="input-group input-append date" id="datepicker1">
+							                <input type="text" class="form-control" name="assessmentstartdate" />
 							                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
 							            </div>
 							        </div>
@@ -185,9 +185,9 @@
 				        	</div>	
 				        	<div class="col-xs-2">
 				        		<div class="form-group">
-							        <label class="control-label">Assessment End Date</label>
+							        <label class="control-label"><fmt:message key="label.assessmentenddate" /></label>
 							        <div class="date">
-							            <div class="input-group input-append date" id="datePicker2">
+							            <div class="input-group input-append date" class="datepicker1">
 							                <input type="text" class="form-control" name="date" />
 							                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
 							            </div>
@@ -197,7 +197,7 @@
 				        	<div class="col-xs-2">
 				        		<div class="input-group">
 				                    <div class="form-group">
-				                        <label class="control-label"><fmt:message key="label.emailadd" /></label>
+				                        <label class="control-label"><fmt:message key="label.msisdn" /></label>
 				                        <div>
 				                        	<input class="form-control" name="msisdn" id="msisdn" required>
 				                        </div>
@@ -206,7 +206,7 @@
 				        	</div>	
 				        	<div class="col-xs-2">
 					        	<div class="input-group">
-									  <label class="control-label"><fmt:message key="label.selectreport" /></label>
+									  <label class="control-label"><fmt:message key="label.eligibleamount" /></label>
 					                  <select class="form-control" name="eligibleamount" id="eligibleamount" required>
 					                      <option value = "1">50</option>
 					                      <option value = "1">100</option>
@@ -232,7 +232,7 @@
 				        </div>
 				      </div>
 				        <div class="row">
-			        		<button type="submit" id="submituserform" class="btn pull-left"><<fmt:message key="label.runreport" /></button>
+			        		<button type="submit" id="submituserform" class="btn pull-left"><fmt:message key="label.generatereport" /></button>
 				        </div>
 					</form>
 				</div>
@@ -244,17 +244,76 @@
 		<div class="card">
 				<div class="clearfix"></div>
 				<div class="card-content">
-				<div>
+				<div id="loanrequesttable" style="display:none;">
 					<table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
 					    <thead>
 						    <tr>
-						        <th>Request time</th>
-						        <th>MSISDN</th>
-						        <th>Loan Reference</th>
-						        <th>Request channel</th>
-						        <th>Request amount</th>
-						        <th>Grant status</th>
-						        <th>SMPP </th>
+						        <th><fmt:message key="label.RequestTime" /></th>
+						        <th><fmt:message key="label.msisdn" /></th>
+						        <th><fmt:message key="label.LoanReference" /></th>
+						        <th><fmt:message key="label.RequestChannel" /></th>
+						        <th><fmt:message key="label.RequestAmount" /></th>
+						        <th><fmt:message key="label.GrantStatus" /></th>
+						        <th><fmt:message key="label.SMPP" /></th>
+						        <th><fmt:message key="label.evcnotification" /></th>
+						        <th><fmt:message key="label.Sercomnotification" /></th>
+						    </tr>
+					    </thead>
+					    <tbody>
+					    <tr>
+					        <td>8:00PM</td>
+					        <td>08099776566</td>
+					        <td>6YHVC7Y</td>
+					        <td>N/A</td>
+					        <td>50000</td>
+					        <td>Granted</td>
+					        <td>Yeah</td>
+					    </tr>
+					
+					    </tbody>
+					</table>
+				</div>
+				<div id="loanreturnreporttable" style="display:none;">
+					<table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+					    <thead>
+						    <tr>
+						        <th><fmt:message key="label.msisdn" /></th>
+						        <th><fmt:message key="label.LoanReference" /></th>
+						        <th><fmt:message key="label.rechargedate" /></th>
+						        <th><fmt:message key="label.processeddate" /></th>
+						        <th><fmt:message key="label.amountloaned" /></th>
+						        <th><fmt:message key="label.servicecharge" /></th>
+						        <th><fmt:message key="label.paidAmount" /></th>
+						        <th><fmt:message key="label.amountstillowed" /></th>
+						        <th><fmt:message key="label.evcnotification" /></th>
+						        <th><fmt:message key="label.Sercomnotification" /></th>
+						    </tr>
+					    </thead>
+					    <tbody>
+					    <tr>
+					        <td>8:00PM</td>
+					        <td>08099776566</td>
+					        <td>6YHVC7Y</td>
+					        <td>N/A</td>
+					        <td>50000</td>
+					        <td>Granted</td>
+					        <td>Yeah</td>
+					    </tr>
+					
+					    </tbody>
+					</table>
+				</div>
+				<div id="subscriberassessmenttable" style="display:none;">
+					<table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+					    <thead>
+						    <tr>
+						        <th><fmt:message key="label.msisdn" /></th>
+						        <th><fmt:message key="label.lastassessmentdate" /></th>
+						        <th><fmt:message key="label.nooftopup30" /></th>
+						        <th><fmt:message key="label.amounttoppedup30" /></th>
+						        <th><fmt:message key="label.ageinnetwork" /></th>
+						        <th><fmt:message key="label.eligibilitystatus" /></th>
+						        <th><fmt:message key="label.eligibleamount" /></th>
 						    </tr>
 					    </thead>
 					    <tbody>
@@ -278,20 +337,20 @@
 
 <script>
 $(document).ready(function() {
-    $('#datePicker').datepicker({
+    $('#datePicker1').datepicker({
             format: 'mm/dd/yyyy'
         })
         .on('changeDate', function(e) {
             // Revalidate the date field
             $('#eventForm').formValidation('revalidateField', 'date');
         });
-    $('#datePicker2').datepicker({
+    /* $('#datePicker2').datepicker({
         format: 'mm/dd/yyyy'
     })
     .on('changeDate', function(e) {
         // Revalidate the date field
         $('#eventForm').formValidation('revalidateField', 'date');
-    });
+    }); */
 
 });
 </script>
@@ -321,14 +380,23 @@ function changeform(){
 		showelement('loanrequest');
 		hideelement('subscriberassessment');
 		hideelement('loanreturn');
+		showelement('loanrequesttable');
+		hideelement('subscriberassessmenttable');
+		hideelement('loanreturnreporttable');
 	}else if(selectedvalue=='loanreturn'){
 		hideelement('loanrequest');
 		hideelement('subscriberassessment');
 		showelement('loanreturn');
+		hideelement('loanrequesttable');
+		hideelement('subscriberassessmenttable');
+		showelement('loanreturnreporttable');
 	}else if(selectedvalue=='subscriberassessment'){
 		hideelement('loanrequest');
 		showelement('subscriberassessment');
 		hideelement('loanreturn');
+		hideelement('loanrequesttable');
+		showelement('subscriberassessmenttable');
+		hideelement('loanreturnreporttable');
 	}
 }
 
