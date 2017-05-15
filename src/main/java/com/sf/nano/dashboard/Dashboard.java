@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.nano.jpa.entity.Loan;
 import com.sf.nano.tools.LanguageUtils;
 
 @WebServlet( name = "dashboard", urlPatterns = "/dashboard")
@@ -19,6 +23,11 @@ public class Dashboard  extends HttpServlet{
 	 */
 	@Inject
 	private LanguageUtils languageUtils;
+	
+	@Inject
+	NanoDashboardService dashboardService;
+	
+	private Logger log = LoggerFactory.getLogger(getClass());
 	
 	private static final long serialVersionUID = 950129382246280996L;
 
@@ -41,5 +50,4 @@ public class Dashboard  extends HttpServlet{
 		req.getSession().setAttribute("menuitem", "dashboard");
 		req.getRequestDispatcher("/WEB-INF/dashboard/dashboard.jsp").forward(req, resp);
 	}
-
 }

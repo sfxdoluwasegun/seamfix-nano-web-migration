@@ -21,16 +21,24 @@
 				<div class="container-fluid jus">
 				    <div class="row">
 						<div class = "dropdown">
-					     <button class="btn  btn-round btn-success dropdown-toggle" type="button" data-toggle="dropdown">Loan Request Period
+    					<button class="btn  btn-round btn-success dropdown-toggle" style =  "float:left;" type="button" data-toggle="dropdown">Loan Request Period
     					<span class="caret"></span></button>
     					<ul class="dropdown-menu">
  							 <li><a href="#">Today</a></li>
  							 <li><a href="#">Last 7 Days</a></li>
  							 <li><a href="#">Last 30 Days</a></li>
  							  <li class="divider"></li>
- 							 <li><a href="#">Custom</a></li>
+ 							 <li onclick="showDatePeriod()"><a href="#">Custom</a></li>
 						</ul>
 				    </div>
+				    <form id="eventForm" method="post" class="form-horizontal"  style="display: none">
+						      		<div class="input-daterange input-group" style = "float: right;" id ="customDate">
+									    <input type="date" class="input-lg form-control" style = "background-color : white;"/>
+									    <span class="input-group-addon"><b>to</b></span>
+									    <input type="date" class="input-lg form-control"  style = "background-color : white;"/>
+									    <button style="background-color: #26c6da;  float: left;" type="button" class="btn btn-default btn-round btn-sm" >Submit</button>
+									</div>
+				    </form>
 				    </div>
 				       <div class="col-lg-3 col-md-6 col-sm-6">
 				            <div class="card card-stats equal">
@@ -75,8 +83,7 @@
 				                <div class="card-footer">
 				                    <div class="stats"> <i class="material-icons ">local_offer</i>
 				                    <form action="/nano/dashboard">
-    								<button class="btn btn-info btn-sm">Top Up Pool</button>
-
+    									<button class="btn btn-info btn-sm">Top Up Pool</button>
 									</form>
 				                    </div>
 				                </div>
@@ -84,7 +91,7 @@
 				        </div>
 				    </div>
 				    <div class="col-lg-6 col-md-6 col-sm-6">
-				    <div class="card card-stats equall">
+				   		 <div class="card card-stats equall">
 						            <div class="card-header card-header-text"
 											data-background-color="green">
 						                	Successful vs Failed Loan Requests
@@ -94,8 +101,8 @@
 							               			<div class="loanReqChart"></div>
 						           			</div>	
 						           			
-					</div>		      
-  			  </div>
+						</div>		      
+  			  		</div>
   			   <div class="col-lg-6 col-md-6 col-sm-12">
 				    <div class="card card-stats equall">
 						            <div class="card-header card-header-text"
@@ -103,13 +110,25 @@
 						                	Request Count By Denomination	
 							            	</div>
 							            	<div class="card-content">							            	
-							               		<div class="reqCountByDenominationChart"></div>
-						      </div>		
+							               			<div class="reqCountByDenominationChart"></div>
+						      				</div>		
 					</div>		      
   			  </div>
 	     </div>
-	  </div>
-	  
+	    <div>
+    											<!-- <div class="form-group">
+    											<div class="form-group">
+       											 	<div class="col-xs-5 date" >
+            											<div id="embeddingDatePicker" ></div>
+            											<label class="col-xs-5 control-label" style = "display: none" ><b>Start Date</b></label>
+            											<input type="date" id="datePicker" name="selectedDate" style = "display: none" /> <br>
+            											<label class="col-xs-5 control-label" style = "display: none" ><b>End Date</b></label>
+            											<input type="date" id="datePicker" name="selectedDate" style = "display: none" />
+        											</div>
+    											</div> -->
+    											
+										
+	     </div>
 	</jsp:body>
 </t:page>
 
@@ -151,7 +170,6 @@ setTimeout(function () {
         ids: 'data2'
     });
 }, 2500);
-
 
 var reqCountByDenominationChart = c3.generate({
 	 bindto: '.reqCountByDenominationChart',
@@ -206,20 +224,15 @@ setTimeout(function () {
 }, 2500);
 </script>
 <script>
-$('#datePicker').datepicker({
-    format: 'mm/dd/yyyy'
-})
-.on('changeDate', function(e) {
-    // Revalidate the date field
-    $('#eventForm').formValidation('revalidateField', 'date');
-    $("#datePicker").datepicker('setDate', new Date());
-    
-});
+    $(document).ready(function() {
+        var heights = $(".equall").map(function() {
+            return $(this).height();
+        }).get(),
 
-</script>
+        maxHeight = Math.max.apply(null, heights);
 
-<script>
-$("#datePicker").datepicker('setDate', new Date());
+        $(".equall").height(maxHeight);
+    });
 </script>
 <script>
     $(document).ready(function() {
@@ -233,13 +246,35 @@ $("#datePicker").datepicker('setDate', new Date());
     });
 </script>
 <script>
-    $(document).ready(function() {
-        var heights = $(".equall").map(function() {
-            return $(this).height();
-        }).get(),
-
-        maxHeight = Math.max.apply(null, heights);
-
-        $(".equall").height(maxHeight);
-    });
+function showDatePeriod(){
+	
+	$('#eventForm').show();
+}
+</script>
+<script>
+function standardPeriod(p) {
+	var CurrentDate = new Date();
+	CurrentDate.setMonth(CurrentDate.getMonth() + p);
+	
+	var day = CurrentDate.getDate();
+	var month = CurrentDate.getMonth()+1;
+	var year = CurrentDate.getFullYear();
+	
+	if (month < 10)
+		month = "0" + month;
+	if (day < 10)
+		day = "0" + day;
+	
+	var today = day + "/" + month + "/" + year;
+	
+	return today;
+}
+/*  jQuery ready function. Specify a function to execute when the DOM is fully loaded.  */
+$(document).ready(
+/* This is the function that will get executed after the DOM is fully loaded */
+function () {
+$('#initialdate').val(standardPeriod(-6));
+$('#lastdate').val(standardPeriod(6));
+}
+);
 </script>
