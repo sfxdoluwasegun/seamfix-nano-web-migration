@@ -36,7 +36,7 @@
 				         </div>
 				         <br>
 				        <b><fmt:message key="label.entersearchparam" /></b>
-				        <div id="loanrequest">
+				        <div id="loanrequest" style="display:none;">
 				        <div class="row">
 				        	<div class="col-xs-2">
 						        <div class="form-group">
@@ -170,7 +170,7 @@
 				        	</div>	
 				        </div>
 				      </div>
-				      <div id ="subscriberassessment" style="display:none;">
+				      <div id ="subscriberassessment">
 				      	 <div class="row">
 				        	<div class="col-xs-2">
 						        <div class="form-group">
@@ -208,13 +208,13 @@
 					        	<div class="input-group">
 									  <label class="control-label"><fmt:message key="label.eligibleamount" /></label>
 					                  <select class="form-control" name="eligibleamount" id="eligibleamount" required>
-					                      <option value = "1">50</option>
-					                      <option value = "1">100</option>
-					                      <option value = "1">200</option>
-					                      <option value = "1">500</option>
-					                      <option value = "1">1000</option>
-					                      <option value = "1">2000</option>
-					                      <option value = "1">2600</option>
+					                      <c:choose>
+						                  	<c:when test="${thresholds ne null}">
+						                  		<c:forEach  var = "threshold" items = "${thresholds}">
+						                  		<option value = "${threshold.amount}">${threshold.amount}</option>
+						                  		</c:forEach>
+						                  	</c:when>
+						                  </c:choose>
 					                  </select>
 						         </div>
 				        	</div>	
@@ -248,28 +248,48 @@
 					<table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
 					    <thead>
 						    <tr>
+						    	<th><fmt:message key="label.sn" /></th>
 						        <th><fmt:message key="label.RequestTime" /></th>
 						        <th><fmt:message key="label.msisdn" /></th>
 						        <th><fmt:message key="label.LoanReference" /></th>
 						        <th><fmt:message key="label.RequestChannel" /></th>
 						        <th><fmt:message key="label.RequestAmount" /></th>
 						        <th><fmt:message key="label.GrantStatus" /></th>
-						        <th><fmt:message key="label.SMPP" /></th>
+						        <th class="disabled-sorting"><fmt:message key="label.actions" /></th>
+						        <%-- <th><fmt:message key="label.SMPP" /></th>
 						        <th><fmt:message key="label.evcnotification" /></th>
-						        <th><fmt:message key="label.Sercomnotification" /></th>
+						        <th><fmt:message key="label.Sercomnotification" /></th> --%>
 						    </tr>
 					    </thead>
 					    <tbody>
-					    <tr>
-					        <td>8:00PM</td>
-					        <td>08099776566</td>
-					        <td>6YHVC7Y</td>
-					        <td>N/A</td>
-					        <td>50000</td>
-					        <td>Granted</td>
-					        <td>Yeah</td>
-					    </tr>
-					
+					    	<c:choose>
+					    		<c:when test="${loanRequests ne null}">
+					    			<c:forEach  var = "loanRequest" items = "${loanRequests}" varStatus="myIndex">
+					    				 <tr>
+					    				 	<td scope="row" class="text-center">${myIndex.index +1}</td>
+									        <td><fmt:formatDate type="DATE" pattern="EEE dd MMM, yyyy HH:mm a" value="${loanRequest.date}"/></td>
+									        <td>${loanRequest.subscriber.msisdn}</td>
+									        <td>${loanRequest.referenceNo}</td>
+									        <td>${loanRequest.channelType}</td>
+									        <td>${loanRequest.amountRequested}</td>
+									        <c:choose>
+						                  	<c:when test="${loanRequest.granted eq true}">
+						                  		<td>Granted</td>
+						                  	</c:when>
+						                  	<c:otherwise>
+						                  		<td>Not Granted</td>
+						                  	</c:otherwise>
+						                  </c:choose>
+						                  <td class="td-actions">
+						                  <a onclick="GetInfo('${loanRequest.pk}')"><button type="button" data-placement="top" title='<fmt:message key="label.viewmore" />' class="btn btn-info"><i class="material-icons">keyboard_arrow_down</i></button></a>
+									       </td>
+									       <%--  <td>${loanRequest.date}</td>
+									        <td>${loanRequest.date}</td>
+									        <td>${loanRequest.date}</td> --%>
+									    </tr>
+			                  		</c:forEach>
+					    		</c:when>
+					    	</c:choose>
 					    </tbody>
 					</table>
 				</div>
@@ -332,6 +352,30 @@
 				</div>
 			</div>
 		</div>
+			<!------------------------ view mORE Modal ------------------------------>
+
+<div class="modal fade" id="view" role="dialog">
+	<div class="modal-dialog modal-lg">
+
+<!-- Modal content-->
+		<div class="modal-content">
+				<div class="modal-header modal-info">
+                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                     <h3 id="myModalLabel" style="color:black">Loan Request Report</h3>
+                </div>
+				<div class="modal-body">
+					 <p><b>MSISDN:</b><b id="msisdnv"></b></p>
+					 <p><b>SMPP RESPONSE:</b><b id="smpp"></b></p>
+					 <p></p>
+					 <p></p>
+					 <p></p>
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+	 </div>
+</div>
+<!-- ---------------------------------------------------MODALS END------------------------------------------------------->
 	</jsp:body>
 </t:page>
 
@@ -408,10 +452,28 @@ function showelement(id){
 }
 </script>
 <script>
-var resultOutput = {
-	"loanrequest": ["Request Time","MSISDN","Loan Reference","Request Channel","SMS/USSD","Request Amount","Grant Status","SMPP Notification","EVC Notification","Sercom Notification"],
-	"loanreturn":["MSISDN","Ref Number","Recharge Date","Processed Date","Amount Loaned","Service Charge","Amount Paid","Amount STill owed","Sercom Notification"],
-	"subscriberassessment":["MSISDN","Last Assessment Date","Number Of Topups in last 30 days","Amount topped up in last 30 days","age on network","Eligibility Status"]
-}
+function GetInfo(_p){
+
+	var ajaxUrl = '<%=request.getContextPath() + "/support?action=_fetchDetails&_p="%>' + _p;
+
+			$.ajax({
+				url : ajaxUrl,
+				type : "POST",
+				dataType : "json",
+				success : function(data, textStatus, jqXHR) {
+					if (data.update == "success") {
+					document.getElementById("msisdnv").innerHTML = data.msisdn;
+					document.getElementById("smpp").innerHTML = data.smpp;
+
+						//alert(data.fullname);
+						$('#view').modal('show');
+					} else {
+
+						alert(data.update);
+					}
+				}
+			});
+
+		}
 
 </script>
