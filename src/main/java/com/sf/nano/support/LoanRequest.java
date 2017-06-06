@@ -2,8 +2,6 @@ package com.sf.nano.support;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -17,15 +15,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.nano.jpa.entity.Loan;
-import com.nano.jpa.entity.Thresholds;
 import com.sf.nano.javabeans.LoanRequestReport;
+import com.sf.nano.tools.DataTableParamUtil;
+import com.sf.nano.tools.JQueryDataTableParamModel;
 import com.sf.nano.tools.LanguageUtils;
 
 
-@WebServlet( name = "support", urlPatterns = "/support")
-public class Support extends HttpServlet{
+@WebServlet( name = "support", urlPatterns = "/support/loanrequest")
+public class LoanRequest extends HttpServlet{
 
 	private static final long serialVersionUID = -4176862984502255408L;
 	
@@ -56,24 +57,17 @@ public class Support extends HttpServlet{
 			case "_fetchDetails":
 				fetchdetails(req, resp);
 				break;
+			case "_dt":
+				handleDatatables(req, resp);
+				break;
 		}
 	}
-	
+
 	private void handleLandingPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String language = req.getParameter("language");
 		
-		List<Thresholds> thresholds = supportService.getAllThresholds();
-		List<Loan> loanRequests = supportService.getAllLoanRequests();
-		
-		for (Loan loan : loanRequests) {
-			log.debug(loan.getSubscriber().getMsisdn());
-		}
-		
 		languageUtils.setLanguage(language, req);
-		
-		req.setAttribute("thresholds", thresholds);
-		req.setAttribute("loanRequests", loanRequests);
 		
 		req.getSession().setAttribute("menuitem", "support");
 		req.getRequestDispatcher("/WEB-INF/support/support.jsp").forward(req, resp);
@@ -81,8 +75,6 @@ public class Support extends HttpServlet{
 	
 	private void fetchdetails(HttpServletRequest req, HttpServletResponse resp) {
 
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		
 		String pk = req.getParameter("_p");
 		
 		log.debug("here " + pk);
@@ -119,22 +111,53 @@ public class Support extends HttpServlet{
 			return;
 		}
 		
-		JsonObject jsonObject= new JsonObject();
-		jsonObject.addProperty("update", "success");
-		jsonObject.addProperty("time",df.format(loanRequestReport.getDate()));
-		jsonObject.addProperty("msisdn",loanRequestReport.getMsisdn());
-		jsonObject.addProperty("refno",loanRequestReport.getReferenceNo());
-		jsonObject.addProperty("network",loanRequestReport.getChannelType());
-		jsonObject.addProperty("amount",loanRequestReport.getAmountRequested().toPlainString());
-		jsonObject.addProperty("evc",loanRequestReport.getEvc_response());
-		jsonObject.addProperty("sercom",loanRequestReport.getSercom_response());
-		jsonObject.addProperty("smpp",loanRequestReport.getSmpp_response());
-		jsonObject.addProperty("sms","not available");
+		JsonObject jsonObject = supportService.getLoanRequestAsJsonObject(loanRequestReport);
+		
 		log.debug("here now");
 		sendJsonObjectToView(resp, jsonObject);
 		
 	}
 	
+	
+	private void handleDatatables(HttpServletRequest req, HttpServletResponse resp) {
+
+		JsonObject jsonResponse = new JsonObject();
+		try {
+			Long count = supportService.getCountOfLoanRequest();
+			
+			JQueryDataTableParamModel jQueryDataTableParamModel = DataTableParamUtil.getParam(req);
+
+			List<Loan> searchResult = getPaginatedLoanRequestList(jQueryDataTableParamModel);
+			
+			jsonResponse.addProperty("draw", jQueryDataTableParamModel.getsEcho());
+			jsonResponse.addProperty("iTotalRecords", count);
+			jsonResponse.addProperty("iTotalDisplayRecords", count);
+			
+			JsonArray array = supportService.convertListOfLoanRequestToJsonArray(jQueryDataTableParamModel.getiDisplayStart(), searchResult);
+			jsonResponse.add("data",array);
+
+		} catch (JsonIOException e) {
+			log.debug("JsonIOException", e);
+			jsonResponse.addProperty("error","error");
+
+		} catch (Exception e) {
+			jsonResponse.addProperty("error","error");
+			log.debug("Exception e", e);
+		}
+		
+		sendJsonObjectToView(resp, jsonResponse);
+		
+	}
+	
+	private List<Loan> getPaginatedLoanRequestList(JQueryDataTableParamModel jQueryDataTableParamModel) {
+		int pageSize = jQueryDataTableParamModel.getiDisplayLength();
+		int pageIndex = jQueryDataTableParamModel.getiDisplayStart();
+		String search = jQueryDataTableParamModel.getsSearch();
+
+		List<Loan> entityList = supportService.getPaginatedLoanRequestListWithSearchParam(pageSize, pageIndex, search);
+		return entityList;
+	}
+
 	private void sendJsonObjectToView(HttpServletResponse resp, JsonObject jsonObject) {
 			
 	

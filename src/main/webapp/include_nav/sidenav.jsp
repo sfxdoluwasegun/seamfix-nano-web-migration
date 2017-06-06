@@ -51,6 +51,14 @@
 	<c:set var="support" value="active" />
 </c:if>
 
+<c:if test="${sessionScope.menuitem eq 'loanreturn'}">
+	<c:set var="loanreturn" value="active" />
+</c:if>
+
+<c:if test="${sessionScope.menuitem eq 'subscriberassessment'}">
+	<c:set var="subscriberassessment" value="active" />
+</c:if>
+
 <div class="sidebar" data-active-color="rose" data-background-color="black" data-image="/nano/assets/img/sidebar-1.jpg">
     <div class="logo">
         <a href="#" class="simple-text">
@@ -148,12 +156,33 @@
                     <p><fmt:message key="label.reportjobs" /></p>
                 </a>
             </li>
-            <li class="${support}">
-                <a href="/nano/support">
+            <%-- <li class="${support}">
+                <a href="/nano/support/loanrequest">
                     <i class="material-icons">multiline_chart</i>
                     <p><fmt:message key="label.support" /></p>
                 </a>
-            </li>
+            </li> --%>
+            <li class="${support} ${loanreturn} ${subscriberassessment}">
+	            	 <a data-toggle="collapse" href="#support" title="<fmt:message key="label.support" />">
+	                    <i class="material-icons">multiline_chart</i>
+	                    <p><fmt:message key="label.support" />
+	                    <b class="caret"></b>
+	                    </p>
+	                </a>
+	                <div class="collapse" id="support">
+	                     <ul class="nav">
+                        <li class="${support}">
+                            <a href="/nano/support/loanrequest"><fmt:message key="label.loanrequest" /></a>
+                        </li>
+                        <li class="${loanreturn}">
+                            <a href="/nano/support/loanreturn"><fmt:message key="label.loanReturn" /></a>
+                        </li>
+                        <li class="${subscriberassessment}">
+                            <a href="/nano/support/subscriberassessment"><fmt:message key="label.subscriberassessment" /></a>
+                        </li>
+                    </ul>
+	                </div>
+	            </li>
         </ul>
     </div>
 </div>
